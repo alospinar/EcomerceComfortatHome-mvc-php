@@ -1,0 +1,119 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+.derecha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+
+
+    @include m.tablet {
+        align-items: flex-end;
+    }
+
+    .dark-mode-boton {
+        width: 3rem;
+        margin-top: 3rem;
+        margin-bottom: 2rem;
+        filter: invert(100%);
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        @include m.tablet {
+            margin-top: 0;
+        }
+    }
+
+}
+
+.barra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: none;
+    @include m.tablet {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+}
+
+.navegacion {
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transition: visibility .3s ease-in-out, opacity .5s linear, height .5s linear ;
+
+
+    @include m.tablet {
+        display: flex;
+        align-items: center;
+        opacity: 1;
+        visibility: visible;
+    }
+    a {
+        color: v.$blanco;
+        text-decoration: none;
+        font-size: 2.2rem;
+        display: block;
+        text-align: center;
+
+        @include m.tablet {
+            margin-right: 2rem;
+            font-size: 1.8rem;
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+    }
+        
+}
+/* menu de hamburguesa */
+.mobile-menu {
+    @include m.tablet {
+        display: none;
+    }
+
+    img {
+        width: 5rem;
+
+    }
+}
+
+.mostrar {
+    visibility: visible;
+    opacity: 1;
+    height: auto;
+}
+
+.carrito-contenedor {
+    position: relative;
+    margin-top: 1rem;
+
+    @include m.tablet {
+        align-self: flex-end;
+        margin-top: 3rem;
+    }
+
+    .carrito-boton {
+        width: 3rem;
+        filter: invert(100%);
+        cursor: pointer;
+    }
+
+    #cantidad-carrito {
+        position: absolute;
+        top: -8px;
+        right: -10px;
+        background-color:v.$amarillo;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,130 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+
+.alerta {
+    padding: .5rem;
+    text-align: center;
+    color: v.$blanco;
+    font-weight: v.$bold;
+    text-transform: uppercase;
+    margin: 1rem 0;
+    
+    &.error {
+        background-color: v.$rojo;
+    }
+
+    &.exito{
+        background-color: v.$verde;
+    }
+}
+
+/* Estilos base (móvil primero) */
+table.propiedades {
+    margin-top: 4rem;
+    width: 100%;
+    
+    thead {
+        display: none; // Ocultar headers en móvil
+        background-color: v.$verde;
+        
+        th {
+            color: v.$blanco;
+            padding: 2rem;
+        }
+    }
+
+    tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        text-align: right;
+        border-bottom: 1px solid #eee;
+        
+        &:last-child {
+            border-bottom: none;
+        }
+        
+        &::before {
+            content: attr(data-label);
+            font-weight: bold;
+            margin-right: 1rem;
+            text-align: left;
+        }
+    }
+
+    .imagen-tabla, .propiedades img {
+        width: 60px;
+        height: auto;
+        display: inline-block;
+        margin: 0 auto;
+    }
+
+    .input-cantidad {
+        width: 60px;
+    }
+
+    .boton-rojo-block {
+        padding: 0.3rem 0.6rem;
+    }
+}
+
+/* Estilos para desktop */
+@include m.tablet {
+    table.propiedades {
+        border-spacing: 0;
+        text-align: center;
+        border-collapse: collapse;
+        
+        thead {
+            display: table-header-group; // Mostrar headers en desktop
+        }
+
+        tr {
+            display: table-row;
+            margin-bottom: 0;
+            border: none;
+            border-radius: 0;
+        }
+
+        td {
+            display: table-cell;
+            padding: 1rem;
+            text-align: center;
+            border-bottom: none;
+            
+            &::before {
+                content: none; // Ocultar labels en desktop
+            }
+        }
+
+        .imagen-tabla, .propiedades img {
+            width: 100px;
+        }
+
+        .input-cantidad {
+            width: auto;
+        }
+    }
+}
+
+/* Estilos compartidos */
+.imagen-small {
+    width: 15rem;
+}
+
+.img-ajustada {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
+    background-color: #f3f3f3;
+}

@@ -1,0 +1,26 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+.boton-amarillo{
+    @include m.boton(v.$amarillo,inline-block);
+}
+.boton-amarillo-block{
+    @include m.boton(v.$amarillo,block);
+}
+
+.boton-verde{
+    @include m.boton(v.$verde,inline-block);
+}
+
+.boton-rojo-block {
+    @include m.boton(v.$rojo,block);
+    width: 100%;
+}
+.boton-verde-block {
+    &.pedido{
+        width: 100%;
+        @include m.boton(v.$verde,block);
+    }
+    @include m.boton(v.$verde,block);
+}
+
