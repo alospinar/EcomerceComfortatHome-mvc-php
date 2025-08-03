@@ -4,11 +4,9 @@ require_once __DIR__. "/../includes/app.php";
 
 use Controllers\CarritoController;
 use Controllers\Logincontroller;
-use MVC\Router;
 use Controllers\PropiedadController;
-
 use Controllers\PaginaController;
-
+use MVC\Router;
 
 
 $router = new Router();
