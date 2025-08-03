@@ -3,7 +3,6 @@
 namespace Controllers;
 use MVC\Router;
 use Model\Propiedad;
-use Model\Vendedor;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager ;
 
