@@ -6,7 +6,7 @@ require __DIR__."/../vendor/autoload.php";
 $dotenv= Dotenv::createImmutable(__DIR__);
 $dotenv->SafeLoad();
 require "funciones.php";
-require "config/database.php";
+require "database.php";
 
 
 //conectarnos a la bases de datos
