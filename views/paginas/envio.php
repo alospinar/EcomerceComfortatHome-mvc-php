@@ -23,7 +23,7 @@
     
 
     <h2>Llene el formulario de Contacto</h2>
-    <form class="formulario " action="/envio" method="POST">
+    <form class="formulario" action="/envio" method="POST">
         <fieldset>
             <legend> informacion Personal</legend>
 

@@ -204,4 +204,74 @@ class PaginaController{
         ]);
         
     }
+
+    public static function cuadrosgobelinos(router $router){
+        
+        $mensaje = null;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $respuestas = $_POST['contacto'] ?? null;
+
+            if ($respuestas) {
+                //crear una instancia de PHPmailer
+                //prueba con mailtrap
+                $mail = new PHPMailer();
+                /* $mail->isSMTP();
+                $mail->Host = 'sandbox.smtp.mailtrap.io';
+                $mail->SMTPAuth = true;
+                $mail->Port = 2525;
+                $mail->Username = 'b495248ed0c6e2';
+                $mail->Password = '7f3ac7e9553aca';
+                $mail->SMTPSecure = 'tls'; */
+                //configurar SMTP
+                $mail->isSMTP();
+                $mail->Host = $_ENV['EMAIL_HOST'];
+                $mail->SMTPAuth = true;
+                $mail->Port = $_ENV['EMAIL_PORT'];
+                $mail->Username = $_ENV['EMAIL_USER'];
+                $mail->Password = $_ENV['EMAIL_PASS'];
+                $mail->SMTPSecure = 'tls';
+
+                // Generar número de pedido aleatorio
+                $numero_aleatorio = mt_rand(100000, 999999);
+
+                $mail->setFrom('PedidosHome@comforth.shop');
+                $mail->addAddress('PedidosHome@comforth.shop');
+                $mail->Subject = 'Nuevo pedido de Cuadros Gobelinos #'.$numero_aleatorio;
+
+                // Habilitar HTML
+                $mail->isHTML(true);
+                $mail->CharSet = 'UTF-8';
+
+                // Contenido del correo
+                $contenido  = '<html>';
+                $contenido .= '<h2>Nuevo Pedido de Cuadros Gobelinos</h2>';
+                $contenido .= '<p><strong>Número de pedido:</strong> '.$numero_aleatorio.'</p>';
+                $contenido .= '<p><strong>Nombre del Cliente:</strong> '.htmlspecialchars($respuestas['nombre']).'</p>';
+                $contenido .= '<p><strong>Cédula:</strong> '.htmlspecialchars($respuestas['cedula']).'</p>';
+                $contenido .= '<p><strong>Teléfono:</strong> '.htmlspecialchars($respuestas['celular']).'</p>';
+                $contenido .= '<p><strong>Ciudad:</strong> '.htmlspecialchars($respuestas['ciudad']).'</p>';
+                $contenido .= '<p><strong>Departamento:</strong> '.htmlspecialchars($respuestas['departamento']).'</p>';
+                $contenido .= '<p><strong>Dirección:</strong> '.htmlspecialchars($respuestas['direccion']).'</p>';
+                $contenido .= '<hr>';
+                $contenido .= '<p><strong>Tamaño seleccionado:</strong> '.htmlspecialchars($respuestas['tamano']).'</p>';
+                $contenido .= '<p><strong>Cuadro elegido:</strong> '.htmlspecialchars($respuestas['cuadro']).'</p>';
+                $contenido .= '</html>';
+
+                $mail->Body = $contenido;
+                $mail->AltBody = 'Nuevo pedido de Cuadros Gobelinos. Pedido #: '.$numero_aleatorio;
+
+                if ($mail->send()) {
+                    $mensaje = 'Tu pedido se envió correctamente. Pronto nos pondremos en contacto.';
+                } else {
+                    $mensaje = 'No se pudo enviar el pedido, intenta más tarde.';
+                }
+            } else {
+                $mensaje = 'Faltan datos en el formulario.';
+            }
+        }
+        $router->render('/paginas/cuadrosgobelinos',[
+            'mensaje'=>$mensaje
+        ]);
+    }
 }

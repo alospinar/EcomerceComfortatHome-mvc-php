@@ -1,0 +1,742 @@
+
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+// Botón verde animado llamativo
+body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa; color: #333; h1, h2, h3, p { font-family: 'Lilita One', sans-serif; } }
+.btn.btn-comprar {
+    background-color: #1bb81b !important;
+    color: #fff !important;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1.7rem;
+    box-shadow: 0 2px 8px rgba(27, 184, 27, 0.15);
+    animation: crecerDecrecer 1.2s infinite alternate cubic-bezier(0.4,0,0.2,1);
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    width: 100%;
+    padding: 1rem;
+    
+    display: block;
+    margin: 1.5rem auto;
+    height: 5rem;
+    text-align: center;
+    
+    @include m.tablet {
+        margin: 0 auto;
+        padding: 0;
+    }
+    @include m.desktop {
+        margin: 0 auto;
+        padding: 1rem;
+    }
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+@keyframes crecerDecrecer {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.13);
+    }
+}
+// (Se movieron las variantes grandes dentro del bloque .pagina-cuadros .antes-despues-llamativo más abajo)
+
+.pagina-cuadros {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1.6rem;
+
+    header {
+        text-align: center;
+        padding: 2rem;
+        background-color: #fffdfa;
+        border-bottom: 1px solid #eee;
+        
+        @include m.tablet {
+            padding: 3rem 2rem;
+        }
+    }
+
+        
+        /* Carousel styles (aplicables cuando .imagen tiene .carousel) */
+        .imagen.carousel {
+            display: block;
+            height: 40rem;
+            background: #f7f7f7;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .imagen.carousel .carousel-track {
+            display: flex;
+            transition: transform 0.35s ease-in-out;
+            will-change: transform;
+            height: 100%;
+        }
+        
+        .imagen.carousel .carousel-slide {
+            min-width: 100%;
+            flex: 0 0 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .imagen.carousel .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .imagen.carousel .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.45);
+            color: #fff;
+            border: none;
+            width: 3.2rem;
+            height: 3.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            font-size: 1.6rem;
+        }
+        
+        .imagen.carousel .carousel-btn.prev { left: 1rem; }
+        .imagen.carousel .carousel-btn.next { right: 1rem; }
+        
+        .imagen.carousel .carousel-dots {
+            position: absolute;
+            bottom: 0.8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.6rem;
+            z-index: 25;
+        }
+        
+        .imagen.carousel .carousel-dots button {
+            width: 0.9rem;
+            height: 0.9rem;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.6);
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .imagen.carousel .carousel-dots button[aria-selected="true"] {
+            background: #1bb81b;
+        }
+        
+        @include m.tablet {
+            .imagen.carousel { height: 45rem; }
+            .imagen.carousel .carousel-btn { width: 3.6rem; height: 3.6rem; font-size: 1.9rem; }
+        }
+    /* Tagline bajo el logo */
+    .header-tagline {
+        margin-top: 0.8rem;
+    }
+    .header-tagline .tagline-black {
+        color: #000;
+        font-weight: 700;
+        font-size: 2.8rem;
+        text-transform: none;
+    }
+    .header-tagline .tagline-yellow {
+        color: #ffd200; /* amarillo */
+        font-weight: 700;
+        font-size: 2.8rem;
+        margin-top: 0.2rem;
+    }
+
+    @include m.tablet {
+        .header-tagline .tagline-black {
+            font-size: 2.8rem;
+        }
+        .header-tagline .tagline-yellow {
+            font-size: 2.8rem;
+        }
+    }
+
+    .logo {
+        max-width: 30rem;
+        height: auto;
+        margin: 0 auto;
+        padding: 0;
+        @include m.tablet {
+            max-width: 35rem;
+        }
+    }
+
+    .slogan {
+        margin-top: 1.5rem;
+        font-size: 2rem;
+        color: #e1e1e1;
+        
+        @include m.tablet {
+            font-size: 2.5rem;
+        }
+        
+        @include m.desktop {
+            font-size: 3rem;
+        }
+    }
+
+    section {
+        padding: 8rem 2rem;
+        margin: 3rem 0;
+        
+        @include m.tablet {
+            padding: 10rem 2rem;
+            margin: 4rem 0;
+        }
+
+        &.seccion1 {
+            background-color: #333;
+            margin-top: 0;
+            
+            h2, p, li, .texto-clientes, .acordeon-header, .acordeon-content p {
+                color: white ;
+                text-transform: uppercase;
+                font-weight: bold;
+                &.descuento-texto {
+                    font-size: 1.6rem;
+                    color: #7a4a00;
+                }
+            }
+
+            .acordeon {
+                &-header {
+                    background: rgba(255, 255, 255, 0.1);
+                    &:hover {
+                        background: rgba(255, 255, 255, 0.2);
+                    }
+                    &.active {
+                        background: rgba(255, 255, 255, 0.3);
+                    }
+                }
+                &-content {
+                    background: rgba(255, 255, 255, 0.05);
+                }
+            }
+            
+            .calificacion-cliente .texto-clientes {
+                color: white !important;
+            }
+        }
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+
+        @include m.tablet {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            padding: 0 4rem;
+        }
+    }
+
+    .columna {
+        width: 100%;
+        
+        @include m.tablet {
+            flex: 1;
+        }
+    }
+
+    
+
+    .contenido {
+        h2 {
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 2.8rem; // Tamaño más pequeño para móviles
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            word-wrap: break-word; // Permite que las palabras largas se rompan si es necesario
+            
+            @include m.tablet {
+                font-size: 3rem;
+            }
+        }
+
+        p {
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+            font-weight: bold;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            
+            li {
+                text-transform: uppercase;
+                font-weight: bold;
+                margin-bottom: 0.8rem;
+                display: flex;
+                align-items: center;
+                
+                &::before {
+                    content: "✝️";  // Cruz para imágenes religiosas
+                    margin-right: 1rem;
+                    font-size: 1.8rem;
+                }
+            }
+        }
+        
+        h2::before {
+            content: "🎨";
+            margin-right: 1rem;
+            font-size: 0.8em;
+        }
+        
+        /* Contenedor principal para estrellas y texto */
+        .calificacion-cliente {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: nowrap; /* Evita que los elementos se envuelvan */
+        }
+        
+        /* Estilos para las estrellas */
+        .estrellas {
+            display: flex;
+            margin-right: 1rem; /* Espacio entre estrellas y texto */
+            
+            .estrella {
+                width: 1.8rem;
+                height: 1.8rem;
+                margin-right: 0.2rem; /* Espacio entre estrellas */
+                
+                @include m.tablet {
+                    width: 2rem;
+                    height: 2rem;
+                }
+                
+                &:last-child {
+                    margin-right: 0; /* Elimina margen de la última estrella */
+                }
+            }
+        }
+    .span{
+        font-size: 1.4rem;
+        color: #555;
+        font-weight: bold;
+        margin-right: 1rem; /* Espacio entre estrellas y texto */
+        
+        @include m.tablet {
+            font-size: 1.6rem;
+        }
+    }
+    /* Estilo para el texto de clientes satisfechos */
+    .texto-clientes {
+        font-weight: bold;
+        color: #4a6ee0;
+        font-size: 1.4rem;
+        white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+        
+        @include m.tablet {
+            font-size: 1.6rem;
+        }
+    }
+
+
+    /* Estilos llamativos para el contenedor de descuento */
+    .descuento-llamativo {
+        background: linear-gradient(90deg, #ffe259 0%, #ffa751 100%);
+        border-radius: 10px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(255, 174, 51, 0.15);
+        text-align: center;
+        border: 2px solid #ffb347;
+        
+        .descuento-titulo {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #b85d00;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+    }
+
+    /* Estilos llamativos para el contenedor antes/después */
+    .antes-despues-llamativo {
+        background: linear-gradient(90deg, #e0eafc 0%, #cfdef3 100%);
+        border-radius: 10px;
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(80, 120, 255, 0.10);
+        border: 2px solid #7faaff;
+        text-align: center;
+        
+        .ad-titulo {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2a4a7b;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .ad-contenido {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .ad-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1bb81b;
+            border: 2px solid #1bb81b;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 1px 6px rgba(80, 120, 255, 0.08);
+            min-width: 120px;
+        }
+        .ad-col.ad-antes  {
+            span {
+            font-size: 3rem;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 0.5rem;
+                
+            }
+            & .precio-antes-grande {
+                font-size: 3rem;
+                font-weight: bold;
+                color: #e74c3c;
+                margin-bottom: 0.5rem;
+                text-decoration: line-through;
+            }
+        }
+        .ad-col.ad-despues span {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fafafa;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 10rem;
+            color: #888;
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .precio-antes {
+            color: #b85d00;
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: relative;
+            display: inline-block;
+        }
+        .precio-antes .tachado {
+            color: #e74c3c;
+            font-size: 2.4rem;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -60%);
+            margin: 0;
+            line-height: 1;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .precio-ahora {
+            color: #1bb81b;
+            font-size: 1.7rem;
+            font-weight: bold;
+            background: #1bb81b;
+            border-radius: 6px;
+            padding: 0.3rem 1.2rem;
+            margin-top: 0.7rem;
+            box-shadow: 0 2px 8px rgba(27, 184, 27, 0.10);
+        }
+        .ad-img {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 2px solid #7faaff;
+        }
+
+        // Variantes grandes (antes/después) - refactorizadas desde la parte superior
+        .ad-col.ad-antes {
+            background: #ffeaea;
+            border: 2.5px solid #e74c3c;
+            border-radius: 12px;
+            position: relative;
+            min-width: 140px;
+            min-height: 90px;
+            box-shadow: 0 2px 10px rgba(231, 76, 60, 0.08);
+        }
+
+        // Modificadores grandes para precios y tachado
+        .precio-antes--grande,
+        .precio-antes.grande {
+            font-size: 2.6rem;
+            color: #b85d00;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            display: block;
+            text-align: center;
+        }
+
+        .tachado--grande,
+        .tachado.grande {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6.5rem;
+            color: #e74c3c;
+            font-weight: bold;
+            opacity: 0.22;
+            z-index: 1;
+            pointer-events: none;
+            width: 100%;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .precio-ahora--grande,
+        .precio-ahora.grande {
+            font-size: 2.8rem;
+            color: #fff;
+            font-weight: bold;
+            background-color: #1bb81b;
+            border-radius: 8px;
+            padding: 0.4rem 1.5rem;
+            margin-top: 0.7rem;
+            box-shadow: 0 2px 8px rgba(27, 184, 27, 0.18);
+            display: inline-block;
+            text-align: center;
+            letter-spacing: 1px;
+            border: 2px solid #1bb81b;
+        }
+    }
+
+    /* Iconos pequeños en fila (centrados y responsivos) */
+    
+    .icono-pequeño  {
+        text-align: center;
+        img{
+            width: 100%;
+            display: block; 
+        }
+        
+    }
+    .icono-certificado  {
+        text-align: center;
+        img{
+            display: block;
+            margin: 0 auto;
+            width: 100%; /* tamaño moderado en móvil */
+            height: auto;
+        }
+        
+    }
+
+    @include m.tablet {
+        .icono-certificado img {
+            width: 20%; /* más visible en tablet/desktop */
+        
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.6rem;
+            flex: 0 0 calc(33.333% - 1.6rem);
+            max-width: calc(33.333% - 1.6rem);
+            box-sizing: border-box;
+            padding: 0.6rem;
+            height: auto;
+            margin: 0 auto;
+        }
+    }
+
+   
+
+    /* Colores de fondo alternados para secciones */
+    section:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    /* Para tablet y desktop: alternar el orden de las columnas */
+    @include m.tablet {
+        // Secciones pares (2, 4): contenido a la izquierda, imagen a la derecha
+        section:nth-child(even) .container {
+            flex-direction: row-reverse;
+        }
+    }
+    }
+}
+// Estilos para el acordeón
+.acordeon {
+    max-width: 600px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    
+    &-item {
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    &-header {
+        width: 100%;
+        text-align: left;
+        padding: 15px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #f1f1f1;
+        transition: background 0.3s;
+        
+        &:hover {
+            background: #e1e1e1;
+        }
+        
+        &.active {
+            background: #ccc;
+        }
+    }
+
+    &-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        background: #fafafa;
+        padding: 0 15px;
+        
+        p {
+            margin: 15px 0;
+        }
+    }
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+
+  &.oculto {
+    display: none;
+  }
+}
+
+.modal-contenido {
+  background: #fff;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+  animation: aparecer 0.3s ease;
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #4CAF50;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+
+    &:hover {
+      background: #45a049;
+    }
+  }
+
+  .cerrar {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    z-index: 1100; /* alto para que quede encima */
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+      background: none;
+    }
+  }
+  
+}
+
+.opciones {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #f9f9f9;
+ 
+}
+
+
+
+.oculto {
+  input,label {
+    display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 10px; // Espacio entre el input y el label
+  }
+  
+}
+

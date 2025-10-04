@@ -50,14 +50,18 @@ class Router {
     // Muestra una vista
 
     public function render($view,$datos=[]){
-
         foreach($datos as $key => $value){
             $$key= $value;//$$ significa variable de variable
         }
 
-        ob_start();//almacenando en memoria durante un momento...
-        include __DIR__. "/views/$view.php";
-        $contenido = ob_get_clean();//limpia el buiffer
-        include __DIR__."/views/layout.php";
+        $viewName = basename($view);
+        if ($viewName === "cuadrosgobelinos") {
+            include __DIR__."/views/$view.php";
+        } else {
+            ob_start();//almacenando en memoria durante un momento...
+            include __DIR__. "/views/$view.php";
+            $contenido = ob_get_clean();//limpia el buffer
+            include __DIR__."/views/layout.php";
+        }
     }
 }

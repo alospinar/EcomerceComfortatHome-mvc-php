@@ -29,6 +29,9 @@ $router->post('/contacto',[PaginaController::class,'contacto']);
 $router->get('/envio',[PaginaController::class,'envio']);
 $router->post('/envio',[PaginaController::class,'envio']);
 
+$router->get('/cuadrosgobelinos',[PaginaController::class,'cuadrosgobelinos']);
+$router->post('/cuadrosgobelinos',[PaginaController::class,'cuadrosgobelinos']);
+
 //Login y Autenticacion
 
 $router->get('/login',[Logincontroller::class,'login']);

@@ -1,49 +1,197 @@
 document.addEventListener('DOMContentLoaded',function(){
     redirigirAlCarrito();
-    inicializarCarrito();
+    inicializarCarrito(); 
     eventListeners();
     darkMode();
     mostrarCarrito();
     carritoPedido();
-    
-    
+    inicializarAcordeon();
 
+    const botonesComprar = document.querySelectorAll(".btn-comprar");
+    const modal = document.querySelector("#modalPago");
+    const cerrar = document.querySelector("#cerrarModal");
+    const formPago = document.querySelector("#formPago");
+    const tamano = document.querySelector("#tamano");
+    const opcionesGrandes = document.querySelector("#opcionesGrandes");
+    const opcionesMedianos = document.querySelector("#opcionesMedianos");
+
+    // Manejar cambios en el tamaño seleccionado
+    if (tamano) {
+        // Ocultar las opciones al inicio
+        if (opcionesGrandes) opcionesGrandes.style.display = "none";
+        if (opcionesMedianos) opcionesMedianos.style.display = "none";
+
+        tamano.addEventListener("change", function() {
+            // Ocultar ambas opciones primero
+            if (opcionesGrandes) opcionesGrandes.style.display = "none";
+            if (opcionesMedianos) opcionesMedianos.style.display = "none";
+            
+            // Mostrar las opciones según el tamaño seleccionado
+            if (this.value === "grande") {
+                opcionesGrandes.style.display = "block";
+            } else if (this.value === "mediano") {
+                opcionesMedianos.style.display = "block";
+            }
+        });
+    }
+
+    if (botonesComprar.length && modal && cerrar && formPago) {
+        // 🚀 Abrir modal
+        botonesComprar.forEach(boton => {
+            boton.addEventListener("click", (e) => {
+                e.preventDefault();
+                modal.classList.remove("oculto");
+                document.body.style.overflow = "hidden"; // Bloquear scroll del fondo
+            });
+        });
+
+        // 🚀 Función para cerrar el modal
+        function cerrarModal() {
+            modal.classList.add("oculto");
+            document.body.style.overflow = ""; // Restaurar scroll
+            // Limpiar el formulario al cerrar
+            formPago.reset();
+            // Ocultar las opciones de tamaño
+            if (opcionesGrandes) opcionesGrandes.style.display = "none";
+            if (opcionesMedianos) opcionesMedianos.style.display = "none";
+        }
+
+        // 🚀 Cerrar modal con botón ❌
+        cerrar.addEventListener("click", (e) => {
+            e.preventDefault();
+            cerrarModal();
+        });
+
+        // 🚀 Cerrar modal clicando en el fondo oscuro
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                cerrarModal();
+            }
+        });
+
+        
+    }
+
+    // Carousel initializer (manual, no autoplay)
+    (function(){
+        const carousels = document.querySelectorAll('.carousel');
+        carousels.forEach(carousel => {
+            const track = carousel.querySelector('.carousel-track');
+            const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
+            const prev = carousel.querySelector('.carousel-btn.prev');
+            const next = carousel.querySelector('.carousel-btn.next');
+            const dotsContainer = carousel.querySelector('.carousel-dots');
+            if (!track || slides.length === 0) return;
+
+            let current = 0;
+            let startX = 0;
+            let isDragging = false;
+
+            slides.forEach((s, i) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                btn.setAttribute('aria-label', `Ir a la diapositiva ${i+1}`);
+                btn.addEventListener('click', () => goTo(i));
+                dotsContainer.appendChild(btn);
+            });
+
+            function update(){
+                const w = carousel.getBoundingClientRect().width;
+                track.style.transform = `translateX(${ -current * w }px)`;
+                const dots = Array.from(dotsContainer.children);
+                dots.forEach((d, idx) => d.setAttribute('aria-selected', idx === current ? 'true' : 'false'));
+            }
+
+            function goTo(index){
+                current = Math.max(0, Math.min(index, slides.length -1));
+                update();
+            }
+
+            prev?.addEventListener('click', () => goTo(current - 1));
+            next?.addEventListener('click', () => goTo(current + 1));
+
+            carousel.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') goTo(current + 1);
+                if (e.key === 'ArrowLeft') goTo(current - 1);
+            });
+
+            track.addEventListener('touchstart', (e) => {
+                isDragging = true;
+                startX = e.touches[0].clientX;
+            }, {passive:true});
+
+            track.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const dx = e.touches[0].clientX - startX;
+                const w = carousel.getBoundingClientRect().width;
+                track.style.transform = `translateX(${ -current * w + dx }px)`;
+            }, {passive:true});
+
+            track.addEventListener('touchend', (e) => {
+                isDragging = false;
+                const endX = e.changedTouches[0].clientX;
+                const dx = endX - startX;
+                const threshold = carousel.getBoundingClientRect().width * 0.18;
+                if (dx > threshold) goTo(current - 1);
+                else if (dx < -threshold) goTo(current + 1);
+                else update();
+            });
+
+            window.addEventListener('resize', update);
+            carousel.setAttribute('tabindex', '0');
+            update();
+        });
+    })();
 });
 
-function darkMode(){
-    
-    const prefiereDarkMode= window.matchMedia('(prefers-color-scheme: dark)');
-    /* console.log(prefiereDarkMode.matches); */
 
+function darkMode(){
+    // Verificar si estamos en la página de cuadros gobelinos
+    if (document.body.classList.contains('pagina-cuadros')) {
+        return; // Salir de la función sin aplicar el modo oscuro
+    }
+    
+    const prefiereDarkMode = window.matchMedia('(prefers-color-scheme: dark)');
+    
     if(prefiereDarkMode.matches) {
         document.body.classList.add('dark-mode');
     } else {
         document.body.classList.remove('dark-mode');
     }
 
-    prefiereDarkMode.addEventListener('change',function() {
+    prefiereDarkMode.addEventListener('change', function() {
         if(prefiereDarkMode.matches) {
             document.body.classList.add('dark-mode');
         } else {
             document.body.classList.remove('dark-mode');
         }
     });
+    
     const botonDarkMode = document.querySelector('.dark-mode-boton');
-
-    botonDarkMode.addEventListener('click',function() {
-        document.body.classList.toggle('dark-mode');
-    });
+    
+    if (botonDarkMode) {
+        botonDarkMode.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+        });
+    }
 }
 
 function eventListeners(){
     const mobileMenu = document.querySelector('.mobile-menu');
-
-    mobileMenu.addEventListener('click',navegacionResponsive);
     
-    //Muestra campos conditionales
-    const metodoContacto =document.querySelectorAll('input[name="contacto[contacto]"]');
-    metodoContacto.forEach(input=>input.addEventListener('click',mostrarMetodosContacto))
+    // Verificar si el elemento existe antes de agregar el event listener
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', navegacionResponsive);
+    }
+    
+    // Muestra campos condicionales - verificar si existen
+    const metodoContacto = document.querySelectorAll('input[name="contacto[contacto]"]');
+    if (metodoContacto.length > 0) {
+        metodoContacto.forEach(input => input.addEventListener('click', mostrarMetodosContacto));
+    }
 }
+
 
 function navegacionResponsive(){
     const navegacion = document.querySelector('.navegacion');
@@ -323,8 +471,35 @@ function redirigirAlCarrito() {
     if (iconoCarrito) {
         iconoCarrito.addEventListener('click', function (e) {
             e.preventDefault();
-            window.location.href = '/carrito'; // Cambia la ruta si tu carpeta es diferente
+            window.location.href = '/carrito';
         });
     }
-};
+}
+function inicializarAcordeon() {
+    const headers = document.querySelectorAll(".acordeon-header");
 
+    if (!headers.length) return;
+
+    headers.forEach((header) => {
+        header.addEventListener("click", () => {
+            const content = header.nextElementSibling;
+            
+            // Cerrar todos los demás acordeones
+            document.querySelectorAll(".acordeon-content").forEach((c) => {
+                if (c !== content) {
+                    c.style.maxHeight = null;
+                    c.previousElementSibling.classList.remove("active");
+                }
+            });
+
+            // Alternar el actual
+            header.classList.toggle("active");
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+}

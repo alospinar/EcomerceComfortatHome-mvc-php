@@ -32,7 +32,7 @@
             <legend> informacion del producto </legend>
 
             <label for="presupuesto">Nombre del Producto</label>
-            <textarea id="mensaje" name="contacto[producto]" required ></textarea>
+            <textarea id="presupuesto" name="contacto[producto]" required ></textarea>
         </fieldset>
 
         <fieldset>
