@@ -24,6 +24,42 @@
     /></noscript>
     <!-- End Meta Pixel Code -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Eventos personalizados del sitio -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // 🎯 2️⃣ Evento: cuando se abre el modal de pago
+        const modalPago = document.querySelector('#modalPago');
+        const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (!modalPago.classList.contains('oculto')) {
+            fbq('track', 'AddPaymentInfo');
+            }
+        });
+        });
+        if (modalPago) {
+        observer.observe(modalPago, { attributes: true, attributeFilter: ['class'] });
+        }
+
+        // 🎯 3️⃣ Evento: cuando el usuario envía el formulario de pago
+        const formPago = document.querySelector('#formPago');
+        if (formPago) {
+        formPago.addEventListener('submit', function() {
+
+            // Obtiene los datos seleccionados para enviar a Meta
+            const tamano = document.querySelector('#tamano')?.value || '';
+            const cuadro = document.querySelector('input[name="contacto[cuadro]"]:checked')?.value || '';
+
+            fbq('track', 'Purchase', {
+            content_name: cuadro || 'Cuadro Gobelino',
+            content_category: tamano || 'Sin especificar',
+            value: 279900, // 💰 puedes cambiar dinámicamente este valor si tienes varias opciones
+            currency: 'COP'
+            });
+        });
+        }
+
+    });
+    </script>
 </head>
 <body class="pagina-cuadros">
     <header>
