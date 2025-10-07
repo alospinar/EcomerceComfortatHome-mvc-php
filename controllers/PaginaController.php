@@ -245,17 +245,17 @@ class PaginaController{
 
                 // Contenido del correo
                 $contenido  = '<html>';
-                $contenido .= '<h2>Nuevo Pedido de Cuadros Gobelinos</h2>';
-                $contenido .= '<p><strong>Número de pedido:</strong> '.$numero_aleatorio.'</p>';
-                $contenido .= '<p><strong>Nombre del Cliente:</strong> '.htmlspecialchars($respuestas['nombre']).'</p>';
-                $contenido .= '<p><strong>Cédula:</strong> '.htmlspecialchars($respuestas['cedula']).'</p>';
-                $contenido .= '<p><strong>Teléfono:</strong> '.htmlspecialchars($respuestas['celular']).'</p>';
-                $contenido .= '<p><strong>Ciudad:</strong> '.htmlspecialchars($respuestas['ciudad']).'</p>';
-                $contenido .= '<p><strong>Departamento:</strong> '.htmlspecialchars($respuestas['departamento']).'</p>';
-                $contenido .= '<p><strong>Dirección:</strong> '.htmlspecialchars($respuestas['direccion']).'</p>';
+                $contenido .= '<h2> Nuevo Pedido de Cuadros Gobelinos </h2>';
+                $contenido .= '<p><strong> Número de pedido: </strong> '.$numero_aleatorio.'</p>';
+                $contenido .= '<p><strong> Nombre del Cliente: </strong> '.htmlspecialchars($respuestas['nombre']).'</p>';
+                $contenido .= '<p><strong> Cédula: </strong> '.htmlspecialchars($respuestas['cedula']).'</p>';
+                $contenido .= '<p><strong> Teléfono: </strong> '.htmlspecialchars($respuestas['celular']).'</p>';
+                $contenido .= '<p><strong> Ciudad: </strong> '.htmlspecialchars($respuestas['ciudad']).'</p>';
+                $contenido .= '<p><strong> Departamento: </strong> '.htmlspecialchars($respuestas['departamento']).'</p>';
+                $contenido .= '<p><strong> Dirección: </strong> '.htmlspecialchars($respuestas['direccion']).'</p>';
                 $contenido .= '<hr>';
-                $contenido .= '<p><strong>Tamaño seleccionado:</strong> '.htmlspecialchars($respuestas['tamano']).'</p>';
-                $contenido .= '<p><strong>Cuadro elegido:</strong> '.htmlspecialchars($respuestas['cuadro']).'</p>';
+                $contenido .= '<p><strong> Tamaño seleccionado: </strong> '.htmlspecialchars($respuestas['tamano']).'</p>';
+                $contenido .= '<p><strong> Cuadro elegido: </strong> '.htmlspecialchars($respuestas['cuadro']).'</p>';
                 $contenido .= '</html>';
 
                 $mail->Body = $contenido;

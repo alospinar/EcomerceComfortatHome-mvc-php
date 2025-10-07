@@ -148,12 +148,13 @@ body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa
     /* Tagline bajo el logo */
     .header-tagline {
         margin-top: 0.8rem;
+        text-transform: uppercase;
     }
     .header-tagline .tagline-black {
         color: #000;
         font-weight: 700;
         font-size: 2.8rem;
-        text-transform: none;
+        text-transform: uppercase;
     }
     .header-tagline .tagline-yellow {
         color: #ffd200; /* amarillo */
@@ -212,6 +213,8 @@ body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa
                 color: white ;
                 text-transform: uppercase;
                 font-weight: bold;
+                font-family: 'Lilita One', sans-serif;
+            
                 &.descuento-texto {
                     font-size: 1.6rem;
                     color: #7a4a00;
@@ -281,6 +284,7 @@ body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa
             margin-bottom: 2.5rem;
             line-height: 1.7;
             font-weight: bold;
+            text-transform: uppercase;
         }
 
         ul {
@@ -620,6 +624,8 @@ body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa
         cursor: pointer;
         background: #f1f1f1;
         transition: background 0.3s;
+        text-transform: uppercase;
+       
         
         &:hover {
             background: #e1e1e1;
@@ -637,8 +643,10 @@ body.pagina-cuadros { font-family: 'Lilita One', sans-serif; background: #fafafa
         background: #fafafa;
         padding: 0 15px;
         
+        
         p {
             margin: 15px 0;
+            
         }
     }
 }
